@@ -1,12 +1,17 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const cardSchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true
-  }
+    required: true,
+  },
+  listId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "List",
+    required: true,
+  },
 });
 
-const Card = mongoose.model('Card', cardSchema);
+const Card = mongoose.model("Card", cardSchema);
 
 module.exports = Card;
