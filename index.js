@@ -29,11 +29,6 @@ app.use("/api/boards", boardRoutes);
 app.use("/api/lists", listRoutes);
 app.use("/api/cards", cardRoutes);
 
-// Define a simple route for testing
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
 // Define port
 const port = process.env.PORT || 5000;
 
