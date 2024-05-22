@@ -30,5 +30,31 @@ router.post("/create", async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+router.put("/moveCard", async (req, res) => {
+  const { cardId, sourceListId, destinationListId } = req.body;
+
+  try {
+    // Update the card's listId
+    const card = await Card.findById(cardId);
+    card.listId = destinationListId;
+    await card.save();
+    console.log("card", card);
+    // Update the source list's cards array
+    const sourceList = await List.findById(sourceListId);
+    sourceList.cards = sourceList.cards.filter(
+      (id) => id.toString() !== cardId
+    );
+    await sourceList.save();
+    console.log("sourcelist", sourceList);
+    // Update the destination list's cards array
+    const destinationList = await List.findById(destinationListId);
+    destinationList.cards.push(cardId);
+    await destinationList.save();
+    console.log("destinationList", destinationList);
+    res.status(200).send({ message: "Card moved successfully" });
+  } catch (error) {
+    res.status(500).send({ message: "Error moving card", error });
+  }
+});
 
 module.exports = router;
