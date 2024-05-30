@@ -4,6 +4,7 @@ const List = require("../models/List");
 const Board = require("../models/Board");
 
 router.post("/create", async (req, res) => {
+  console.log("Request to create list", req.body)
   const { title, boardId } = req.body;
   try {
     const newList = new List({ title, boardId });

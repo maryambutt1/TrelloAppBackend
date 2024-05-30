@@ -4,10 +4,10 @@ const Card = require("../models/Card");
 const List = require("../models/List");
 
 router.post("/create", async (req, res) => {
+  console.log("I'm in create route on BE")
+  console.log(req.body)
+  const { title, listId } = req.body;
   try {
-    console.log("Request to create card:", req.body);
-
-    const { title, listId } = req.body;
     if (!title || !listId) {
       return res.status(400).json({ message: "Title and listId are required" });
     }
